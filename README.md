@@ -1,8 +1,6 @@
 # wavKAN-conv2D
 A Julia implementation of Wavelet Kolmogorov-Arnold Networks (wavKAN) for Convolutional Neural Networks.  Mutli-layer Perceptron (MLP) and wavKAN implementations of the Convolutional Neural Network (CNN) and Fourier Neural Operator (FNO) are applied to learn the solution operator of the 2D Darcy Flow Problem.
 
-The MLP models were developed in a [previous side project](https://github.com/PritRaj1/Neural-Operator-Learning). The commit history attributed to their development can be found there. The Dense KAN layer was also developed in a [previous project](https://github.com/PritRaj1/Julia-Wav-KAN).
-
 ## To Run
 
 1. Get dependencies:
@@ -78,10 +76,6 @@ However, it did not surpass the MLP FNO, which is expected given the FNO's suita
 | MLP FNO | 34.12 ± 32.05     | 5.03 ± 3.14     | 21304858.36 ± 6.29  | 2.62 ± 0.43    | 4,667,665     |
 | KAN CNN | 6065.64 ± 502.48  | 612.37 ± 50.11  | 152794.31 ± 100.22  | 241.29 ± 45.38 | 35,919        |    |
 
-### TODO - Plot FLOPs comparison
-
-Training time was recorded for each of the models, but this is not considered a reliable estimate of the computational cost of the models, given that they were not run on the same hardware, and multiple tasks were running on the same machine. The number of FLOPs for each model will be calculated and compared in the future, once GFlops is updated to work with the latest Julia version.
-
 ## Wavelets
 
 <p align="center">
@@ -91,14 +85,6 @@ Training time was recorded for each of the models, but this is not considered a 
     <img src="src/waveletKAN/wavelets/animations/Morlet.gif" width="30%" />
     <img src="src/waveletKAN/wavelets/animations/Shannon.gif" width="30%" />
 </p>
-
-## Message from author:
-
-I was not expecting the wavelet-KAN CNN to outperform the MLP CNN to this extent, especially considering how it struggled for this [sequence modelling task](https://github.com/exa-laboratories/Julia-Wav-KAN). Generally, tuning parameters for the wavelet KAN was the most difficult aspect, and I brute forced it quite unintelligently with HyperTuning.jl. 
-
-I personally still think the spline-based KANs hold the edge over wavelets because of their capacities for symbolic regression - I imagine that it's much more difficult to fit arbritrary functions to wavelets than the functions that splines manifest. Besides, the wavelets are built from simpler functions that a spline-based KAN model can represent. However, it's more parameter efficient to just choose wavelets as your base univariate function than to train an entire KAN model to approximate a wavelet for use as a smaller subset as part of a larger network.
-
-But KANs are very exciting!
 
 ## Problem and Data - 2D Darcy Flow
 
