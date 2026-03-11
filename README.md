@@ -1,4 +1,4 @@
-# Wav-KAN Conv2D
+# 2D Darcy flow models
 
 MLP and Wavelet KAN implementations of the CNN and Fourier Neural Operator (FNO) in Julia, applied to the 2D Darcy Flow problem (diffusion coefficient to solution field mapping).
 
