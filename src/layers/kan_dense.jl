@@ -41,10 +41,12 @@ function (l::KANdense)(x, ps, st)
 
     y, st_t = l.transform(x_exp, ps.transform, st.transform)
 
-    if ndims(y) == 4
-        y_perm = reshape(y, size(y, 2), size(y, 1), size(y, 3))
+    if ndims(y) == 3
+        # y: (out_dims, spatial, batch) from node_mul
+        # BatchNorm expects (..., channels, batch) → permute out_dims to second-to-last
+        y_perm = permutedims(y, (2, 1, 3))  # (spatial, out_dims, batch)
         y_normed, st_n = l.norm_layer(y_perm, ps.norm_layer, st.norm_layer)
-        out = reshape(y_normed, size(y, 1), size(y, 2), size(y, 3))
+        out = permutedims(y_normed, (2, 1, 3))  # (out_dims, spatial, batch)
     else
         out, st_n = l.norm_layer(y, ps.norm_layer, st.norm_layer)
     end
